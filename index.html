@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HNU Portal - Sign In</title>
+    <title>HNU Portal - Student Information System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,249 +14,696 @@
         }
 
         body {
-            background: linear-gradient(180deg, #0f1d2e 0%, #172a3f 100%);
-            min-height: 100vh;
+            background-color: #f1f5f9;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .login-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 36px 28px 28px 28px;
-            width: 100%;
-            max-width: 380px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-            text-align: center;
+        /* Sidebar Style */
+        .sidebar {
+            width: 240px;
+            background-color: #1b3152;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo-box {
-            width: 68px;
-            height: 68px;
-            background-color: #1e3a62;
-            border-radius: 16px;
+            width: 36px;
+            height: 36px;
+            background-color: #2a4773;
+            border-radius: 8px;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px auto;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 20px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(30, 58, 98, 0.2);
-        }
-
-        h2 {
-            font-size: 24px;
             font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 6px;
+            font-size: 11px;
         }
 
-        .subtitle {
-            font-size: 13.5px;
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-
-        .error-box {
-            background-color: #fef2f2;
-            border-radius: 8px;
-            padding: 10px 14px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            color: #dc2626;
-            font-size: 13px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .error-box i {
+        .logo-text h3 {
+            color: #fff;
             font-size: 14px;
+            font-weight: 600;
         }
 
-        .input-group {
-            text-align: left;
+        .logo-text p {
+            font-size: 10px;
+            color: #64748b;
+        }
+
+        .menu-section {
+            padding: 16px 0;
+        }
+
+        .menu-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+            padding: 0 20px 8px;
+            font-weight: 700;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Main Content Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header Bar */
+        .top-header {
+            background-color: #fff;
+            height: 56px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .page-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-badge {
+            background-color: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #2a4773;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Scrollable Content View */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .page-view {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        /* Cards Grid Layout */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-info span {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .stat-info h3 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-top: 4px;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* Card Colors */
+        .icon-blue { background: #eff6ff; color: #2563eb; }
+        .icon-yellow { background: #fefce8; color: #ca8a04; }
+        .icon-cyan { background: #ecfeff; color: #0891b2; }
+        .icon-green { background: #f0fdf4; color: #16a34a; }
+
+        /* Term Card & Tables */
+        .term-block {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .term-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 16px;
         }
 
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #334155;
-            margin-bottom: 6px;
-        }
-
-        .input-wrapper {
-            position: relative;
+        .term-title {
             display: flex;
             align-items: center;
+            gap: 12px;
         }
 
-        .input-wrapper i.field-icon {
-            position: absolute;
-            left: 14px;
-            color: #94a3b8;
-            font-size: 14px;
+        .term-title h3 {
+            font-size: 15px;
+            color: #0f172a;
         }
 
-        .input-wrapper i.toggle-pwd {
-            position: absolute;
-            right: 14px;
-            color: #94a3b8;
-            font-size: 14px;
-            cursor: pointer;
+        .badge-year {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #475569;
         }
 
-        .input-wrapper input {
+        .badge-status {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .data-table {
             width: 100%;
-            padding: 10px 38px 10px 38px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 13.5px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: #64748b;
+            font-size: 11px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .grade-d { background: #ffedd5; color: #c2410c; }
+        .grade-b { background: #e0f2fe; color: #0369a1; }
+        .grade-c { background: #fef9c3; color: #a16207; }
+        .grade-f { background: #fee2e2; color: #b91c1c; }
+
+        .pass-tag {
+            background: #dcfce7;
+            color: #15803d;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .term-summary {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed #e2e8f0;
+            display: flex;
+            gap: 24px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .term-summary strong {
             color: #1e293b;
-            outline: none;
-            transition: border-color 0.2s;
         }
 
-        .input-wrapper input:focus {
-            border-color: #3b82f6;
+        /* Info Profile Box */
+        .profile-card {
+            background: #2a4773;
+            color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        .input-wrapper input::placeholder {
-            color: #94a3b8;
+        .profile-avatar-large {
+            width: 54px;
+            height: 54px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .remember-group {
+        .info-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .info-section h4 {
+            font-size: 14px;
+            color: #1e293b;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-top: 18px;
-            margin-bottom: 22px;
-            text-align: left;
         }
 
-        .remember-group input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #1e3a62;
-            cursor: pointer;
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
 
-        .remember-group label {
-            font-size: 13px;
-            color: #475569;
-            cursor: pointer;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 11px;
-            border: none;
-            border-radius: 8px;
-            background-color: #8da2bd;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-submit:hover {
-            background-color: #1e3a62;
-        }
-
-        .footer-text {
-            margin-top: 36px;
-            font-size: 11.5px;
-            color: #64748b;
-            line-height: 1.5;
-        }
-
-        .footer-text strong {
+        .info-item span {
             display: block;
-            color: #475569;
-            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 2px;
+        }
+
+        .info-item p {
+            font-size: 13px;
+            color: #334155;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <div class="logo-box">HNU</div>
-
-        <h2>Welcome Back</h2>
-        <p class="subtitle">Sign in to your student portal</p>
-
-        <div id="errorAlert" class="error-box">
-            <i class="fa-regular fa-circle-xmark"></i>
-            <span>Invalid username or password</span>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-box">HNU</div>
+            <div class="logo-text">
+                <h3>HNU Portal</h3>
+                <p>Student Portal</p>
+            </div>
         </div>
 
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="username">Username</label>
-                <div class="input-wrapper">
-                    <i class="fa-regular fa-user field-icon"></i>
-                    <input type="text" id="username" placeholder="Enter your username" required autocomplete="off">
+        <div class="menu-section">
+            <div class="menu-title">Academic</div>
+            <a class="nav-item active" onclick="switchTab('transcript', this)">
+                <i class="fa-regular fa-file-lines"></i>
+                <span>Transcript</span>
+            </a>
+            <a class="nav-item">
+                <i class="fa-regular fa-bookmark"></i>
+                <span>Registration</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-title">Financial</div>
+            <a class="nav-item" onclick="switchTab('payments', this)">
+                <i class="fa-regular fa-credit-card"></i>
+                <span>Payments</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-title">Account</div>
+            <a class="nav-item" onclick="switchTab('student-info', this)">
+                <i class="fa-regular fa-user"></i>
+                <span>Student Info</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <a class="nav-item" style="padding:0; color:#64748b;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Container View -->
+    <div class="main-container">
+        <!-- Top Navigation Header -->
+        <header class="top-header">
+            <div class="page-title">
+                <i class="fa-solid fa-bars" style="color: #64748b; cursor: pointer;"></i>
+                <span id="headerTitle">Transcript</span>
+            </div>
+            <div class="user-profile">
+                <i class="fa-regular fa-bell" style="color: #ca8a04;"></i>
+                <div class="user-badge">032245152</div>
+                <div class="user-avatar">م</div>
+                <span style="font-size: 13px; font-weight: 500; color: #334155;">محمد رضا سيد الحلواني</span>
+            </div>
+        </header>
+
+        <!-- Scrollable Content View -->
+        <main class="content-area">
+
+            <!-- PAGE 1: TRANSCRIPT VIEW -->
+            <div id="transcript" class="page-view active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Cumulative GPA</span>
+                            <h3>1.99 <small style="font-size:12px; color:#94a3b8;">/ 1.99</small></h3>
+                        </div>
+                        <div class="stat-icon icon-blue"><i class="fa-regular fa-circle-check"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Grade</span>
+                            <h3>F</h3>
+                        </div>
+                        <div class="stat-icon icon-yellow"><i class="fa-regular fa-shield"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Earned Hours</span>
+                            <h3>70 <small style="font-size:11px; color:#94a3b8;">hrs</small></h3>
+                        </div>
+                        <div class="stat-icon icon-cyan"><i class="fa-regular fa-clock"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Level</span>
+                            <h3>3</h3>
+                        </div>
+                        <div class="stat-icon icon-green"><i class="fa-solid fa-chart-line"></i></div>
+                    </div>
+                </div>
+
+                <!-- Summer Term -->
+                <div class="term-block">
+                    <div class="term-header">
+                        <div class="term-title">
+                            <h3>SUMMER</h3>
+                            <span class="badge-year">2025 / 2026</span>
+                            <span class="badge-status">Posted</span>
+                        </div>
+                        <span style="font-size: 13px; font-weight:600; color:#475569;">CPA 1.50</span>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Credit Hours</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                                <th>Points</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>COM 205-Operating Systems</strong><br><small style="color:#94a3b8;">COM 205</small></td>
+                                <td>3</td>
+                                <td>59.0</td>
+                                <td><span class="grade-badge grade-d">D</span></td>
+                                <td>1.50</td>
+                                <td><span class="pass-tag">Pass</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>COM 207-Data Structures</strong><br><small style="color:#94a3b8;">COM 207</small></td>
+                                <td>3</td>
+                                <td>59.0</td>
+                                <td><span class="grade-badge grade-d">D</span></td>
+                                <td>1.50</td>
+                                <td><span class="pass-tag">Pass</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GEN 317 Problem Solving & Decomsinsning Skills</strong><br><small style="color:#94a3b8;">COM 317</small></td>
+                                <td>2</td>
+                                <td>82.0</td>
+                                <td><span class="grade-badge grade-b">B</span></td>
+                                <td>2.00</td>
+                                <td><span class="pass-tag">Pass</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="term-summary">
+                        <div>TERM GPA: <strong>1.31</strong></div>
+                        <div>Hrs: <strong>6/8</strong></div>
+                        <div>Points: <strong>12.00</strong></div>
+                        <div>CUMULATIVE GGPA: <strong>1.59</strong></div>
+                        <div>Hrs: <strong>70</strong></div>
+                        <div>Level: <strong>3</strong></div>
+                    </div>
+                </div>
+
+                <!-- Spring Term -->
+                <div class="term-block">
+                    <div class="term-header">
+                        <div class="term-title">
+                            <h3>SPRING</h3>
+                            <span class="badge-year">2025 / 2026</span>
+                            <span class="badge-status">Posted</span>
+                        </div>
+                        <span style="font-size: 13px; font-weight:600; color:#475569;">CPA 1.60</span>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Credit Hours</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                                <th>Points</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>BAS 204-Linear Algebra</strong><br><small style="color:#94a3b8;">EAGL204</small></td>
+                                <td>3</td>
+                                <td>62.0</td>
+                                <td><span class="grade-badge grade-d">D+</span></td>
+                                <td>1.00</td>
+                                <td><span class="pass-tag">Pass</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BAS 206-System Analysis and Design</strong><br><small style="color:#94a3b8;">COM 206</small></td>
+                                <td>3</td>
+                                <td>72.0</td>
+                                <td><span class="grade-badge grade-c">C+</span></td>
+                                <td>2.50</td>
+                                <td><span class="pass-tag">Pass</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>COM 207 Data Structures</strong><br><small style="color:#94a3b8;">COM 208</small></td>
+                                <td>3</td>
+                                <td>43.0</td>
+                                <td><span class="grade-badge grade-f">F</span></td>
+                                <td>-</td>
+                                <td><span class="pass-tag">Pass</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="term-summary">
+                        <div>TERM GPA: <strong>1.31</strong></div>
+                        <div>Hrs: <strong>15/16</strong></div>
+                        <div>Points: <strong>28.80</strong></div>
+                        <div>CUMULATIVE CGPA: <strong>1.99</strong></div>
+                        <div>Hrs: <strong>95</strong></div>
+                        <div>Level: <strong>3</strong></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="input-group">
-                <label for="password">Password</label>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-lock field-icon"></i>
-                    <input type="password" id="password" placeholder="Enter your password" required>
-                    <i class="fa-regular fa-eye-slash toggle-pwd" id="togglePassword"></i>
+            <!-- PAGE 2: PAYMENTS VIEW -->
+            <div id="payments" class="page-view">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Total Fees</span>
+                            <h3>107,000.00 <small style="font-size:10px;">EGP</small></h3>
+                        </div>
+                        <div class="stat-icon icon-blue"><i class="fa-regular fa-file-lines"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Discount</span>
+                            <h3>0.00 <small style="font-size:10px;">EGP</small></h3>
+                        </div>
+                        <div class="stat-icon icon-yellow"><i class="fa-solid fa-tag"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Total Paid</span>
+                            <h3>107,000.00 <small style="font-size:10px;">EGP</small></h3>
+                        </div>
+                        <div class="stat-icon icon-green"><i class="fa-regular fa-circle-check"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span>Balance Due</span>
+                            <h3>0.00 <small style="font-size:10px;">EGP</small></h3>
+                        </div>
+                        <div class="stat-icon icon-yellow"><i class="fa-solid fa-dollar-sign"></i></div>
+                    </div>
+                </div>
+
+                <div class="term-block" style="text-align: center; padding: 40px;">
+                    <i class="fa-regular fa-circle-check" style="font-size: 32px; color: #16a34a; margin-bottom: 12px;"></i>
+                    <h3 style="color: #1e293b; font-size: 16px;">No Outstanding Fees</h3>
+                    <p style="color: #94a3b8; font-size: 12px; margin-top: 4px;">You're all clear! No unpaid fees at this time.</p>
                 </div>
             </div>
 
-            <div class="remember-group">
-                <input type="checkbox" id="rememberMe" checked>
-                <label for="rememberMe">Remember me for 30 days</label>
+            <!-- PAGE 3: STUDENT INFO VIEW -->
+            <div id="student-info" class="page-view">
+                <div class="profile-card">
+                    <div class="profile-avatar-large">ما</div>
+                    <div>
+                        <h2 style="font-size: 18px; font-weight: 600;">محمد رضا سيد الحلواني</h2>
+                        <p style="font-size: 12px; opacity: 0.8; margin-top: 4px;">ID: 932240152 - 932240152</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h4><i class="fa-regular fa-user"></i> Personal Information</h4>
+                    <div class="info-grid">
+                        <div class="info-item"><span>First Name</span><p>محمد</p></div>
+                        <div class="info-item"><span>Middle Name</span><p>رضا سيد</p></div>
+                        <div class="info-item"><span>Last Name</span><p>الحلواني</p></div>
+                        <div class="info-item"><span>National ID</span><p>30509180103397</p></div>
+                        <div class="info-item"><span>Gender</span><p>M</p></div>
+                        <div class="info-item"><span>Email</span><p>Mohamed.El-Helwany.2240152@CIT.hnu.edu.eg</p></div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h4><i class="fa-solid fa-graduation-cap"></i> Academic Information</h4>
+                    <div class="info-grid">
+                        <div class="info-item"><span>Student ID</span><p>932240152</p></div>
+                        <div class="info-item"><span>Username</span><p>932240152</p></div>
+                        <div class="info-item"><span>Academic Year</span><p>2026 / 2027</p></div>
+                        <div class="info-item"><span>Last Login</span><p>10 Sept 2026, 15:54</p></div>
+                    </div>
+                </div>
             </div>
 
-            <button type="submit" class="btn-submit">Sign In</button>
-        </form>
-
-        <div class="footer-text">
-            <strong>Helwan National University</strong>
-            Student Information System
-        </div>
+        </main>
     </div>
 
     <script>
-        const validId = "932240152";
+        function switchTab(tabId, element) {
+            // Hide all pages
+            document.querySelectorAll('.page-view').forEach(page => {
+                page.classList.remove('active');
+            });
 
-        // إظهار/إخفاء كلمة المرور
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
+            // Remove active class from menu items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
 
-        togglePassword.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
+            // Show selected page
+            document.getElementById(tabId).classList.add('active');
 
-        // التحقق من تسجيل الدخول
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const userInput = document.getElementById('username').value.trim();
-            const errorAlert = document.getElementById('errorAlert');
+            // Set active menu item
+            if(element) element.classList.add('active');
 
-            if (userInput === validId) {
-                errorAlert.style.display = "none";
-                alert("Sign in successful!");
-                // window.location.href = "transcript.html";
-            } else {
-                errorAlert.style.display = "flex";
-            }
-        });
+            // Update top header title
+            const titleMap = {
+                'transcript': 'Transcript',
+                'payments': 'Payments',
+                'student-info': 'Student Info'
+            };
+            document.getElementById('headerTitle').innerText = titleMap[tabId];
+        }
     </script>
 </body>
 </html>
