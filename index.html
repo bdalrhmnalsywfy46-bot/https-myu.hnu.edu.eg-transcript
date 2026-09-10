@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HNU Portal - Responsive</title>
+    <title>HNU Portal - Transcript</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,104 +14,100 @@
         }
 
         body {
-            background-color: #f1f5f9;
+            background-color: #f4f6f9;
             display: flex;
             height: 100vh;
             overflow: hidden;
             font-size: 11px;
         }
 
-        /* Sidebar Style - Compact Width */
+        /* Sidebar - Matching original narrow width */
         .sidebar {
-            width: 140px;
-            background-color: #1b3152;
-            color: #94a3b8;
+            width: 175px;
+            background-color: #1a2b4c;
+            color: #8a99ad;
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
-            z-index: 10;
+            height: 100%;
         }
 
         .sidebar-header {
-            padding: 10px 8px;
+            padding: 12px 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 8px;
         }
 
         .logo-box {
-            width: 26px;
-            height: 26px;
-            background-color: #2a4773;
-            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            background-color: #273e68;
+            border-radius: 4px;
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             font-size: 9px;
-            flex-shrink: 0;
         }
 
         .logo-text h3 {
             color: #fff;
             font-size: 11px;
             font-weight: 600;
-            white-space: nowrap;
         }
 
         .logo-text p {
             font-size: 8px;
-            color: #64748b;
-            white-space: nowrap;
+            color: #63738a;
         }
 
         .menu-section {
-            padding: 10px 0 4px 0;
+            padding: 8px 0;
         }
 
         .menu-title {
             font-size: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #64748b;
-            padding: 0 10px 4px;
+            color: #51637d;
+            padding: 4px 12px;
             font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 10px;
-            color: #94a3b8;
+            padding: 6px 12px;
+            color: #9ab0ce;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 10.5px;
             cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
         }
 
         .nav-item i {
             font-size: 11px;
             width: 14px;
-            text-align: center;
         }
 
-        .nav-item:hover, .nav-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.08);
             color: #fff;
+            border-left: 3px solid #3b82f6;
         }
 
         .sidebar-footer {
             margin-top: auto;
-            padding: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px;
         }
 
-        /* Main Workspace */
-        .main-container {
+        /* Main Section */
+        .main-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -119,222 +115,220 @@
             min-width: 0;
         }
 
-        .top-header {
+        .top-navbar {
             background-color: #fff;
-            height: 44px;
-            border-bottom: 1px solid #e2e8f0;
+            height: 42px;
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 12px;
+            padding: 0 14px;
             flex-shrink: 0;
         }
 
-        .page-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1e293b;
+        .top-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f2937;
         }
 
-        .user-profile {
+        .top-right {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 11px;
+            font-size: 10.5px;
+            color: #374151;
         }
 
-        .user-badge {
-            background-color: #f1f5f9;
+        .user-chip {
+            background: #f3f4f6;
             padding: 2px 6px;
             border-radius: 4px;
-            font-size: 10px;
-            color: #475569;
+            font-size: 9.5px;
+            color: #4b5563;
         }
 
-        .user-avatar {
-            width: 24px;
-            height: 24px;
-            background-color: #2a4773;
+        .avatar {
+            width: 22px;
+            height: 22px;
+            background-color: #314d79;
             color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 10px;
-            font-weight: 600;
         }
 
-        /* Horizontal Scrollable Area */
-        .content-area {
+        .content-container {
             flex: 1;
-            overflow-y: auto;
-            overflow-x: auto;
+            overflow: auto;
             padding: 12px;
         }
 
-        .page-view {
-            display: none;
-            min-width: 600px;
-        }
-
-        .page-view.active {
-            display: block;
-        }
-
-        /* Mini Stat Grid */
-        .stats-grid {
+        /* Stat Cards */
+        .stats-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 10px;
+            min-width: 550px;
         }
 
         .stat-card {
             background: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .stat-info span {
-            font-size: 9px;
-            color: #64748b;
+        .stat-card span {
+            font-size: 8px;
+            color: #6b7280;
             font-weight: 700;
-            text-transform: uppercase;
         }
 
-        .stat-info h3 {
-            font-size: 13px;
-            color: #1e293b;
+        .stat-card h4 {
+            font-size: 12px;
+            color: #111827;
             margin-top: 2px;
         }
 
-        .stat-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
+        .stat-card-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 10px;
         }
 
-        .icon-blue { background: #eff6ff; color: #2563eb; }
-        .icon-yellow { background: #fefce8; color: #ca8a04; }
-        .icon-cyan { background: #ecfeff; color: #0891b2; }
-        .icon-green { background: #f0fdf4; color: #16a34a; }
-
-        /* Term Block */
-        .term-block {
+        .toggle-btn {
             background: #fff;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 9.5px;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            cursor: pointer;
+            min-width: 550px;
+        }
+
+        /* Term Cards */
+        .term-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            min-width: 550px;
         }
 
         .term-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 8px;
         }
 
-        .term-title {
+        .term-title-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .term-title h3 {
-            font-size: 12px;
-            color: #0f172a;
+        .term-title-group h3 {
+            font-size: 11px;
+            color: #111827;
         }
 
-        .badge-year {
-            background: #f1f5f9;
-            padding: 1px 6px;
-            border-radius: 4px;
+        .badge {
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 8.5px;
+        }
+
+        .badge-year { background: #f3f4f6; color: #374151; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-success { background: #dcfce7; color: #166534; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             font-size: 10px;
-            color: #475569;
         }
 
-        .badge-status {
-            background: #dcfce7;
-            color: #166534;
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-size: 9px;
+        th {
+            text-align: left;
+            padding: 4px 6px;
+            color: #6b7280;
+            font-size: 8.5px;
+            border-bottom: 1px solid #e5e7eb;
             font-weight: 600;
         }
 
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
+        td {
+            padding: 6px;
+            border-bottom: 1px solid #f3f4f6;
+            color: #1f2937;
         }
 
-        .data-table th {
-            text-align: left;
-            padding: 6px 8px;
-            color: #64748b;
-            font-size: 9px;
-            text-transform: uppercase;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .data-table td {
-            padding: 8px;
-            border-bottom: 1px solid #f8fafc;
-            color: #334155;
-        }
-
-        .grade-badge {
+        .grade-tag {
             display: inline-block;
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-size: 10px;
+            padding: 1px 5px;
+            border-radius: 8px;
+            font-size: 9px;
             font-weight: 600;
         }
 
         .grade-d { background: #ffedd5; color: #c2410c; }
-        .grade-b { background: #e0f2fe; color: #0369a1; }
-        .grade-c { background: #fef9c3; color: #a16207; }
-        .grade-f { background: #fee2e2; color: #b91c1c; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef9c3; color: #854d0e; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
 
-        .pass-tag {
+        .pass-badge {
             background: #dcfce7;
             color: #15803d;
-            padding: 1px 6px;
+            padding: 1px 5px;
             border-radius: 3px;
-            font-size: 9px;
+            font-size: 8.5px;
         }
 
-        .term-summary {
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px dashed #e2e8f0;
+        .term-footer {
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px dashed #e5e7eb;
             display: flex;
-            gap: 16px;
-            font-size: 10px;
-            color: #64748b;
+            gap: 12px;
+            font-size: 9px;
+            color: #6b7280;
         }
 
-        .term-summary strong {
-            color: #1e293b;
+        .term-footer strong {
+            color: #111827;
         }
     </style>
 </head>
 <body>
 
-    <!-- Compact Sidebar Menu -->
-    <aside class="sidebar">
+    <!-- Left Sidebar Menu -->
+    <div class="sidebar">
         <div class="sidebar-header">
             <div class="logo-box">HNU</div>
             <div class="logo-text">
@@ -344,8 +338,8 @@
         </div>
 
         <div class="menu-section">
-            <div class="menu-title">ACADEMIC</div>
-            <a class="nav-item active" onclick="switchTab('transcript', this)">
+            <div class="menu-title">ACADEMIC <i class="fa-solid fa-chevron-down"></i></div>
+            <a class="nav-item active">
                 <i class="fa-regular fa-file-lines"></i>
                 <span>Transcript</span>
             </a>
@@ -356,102 +350,112 @@
         </div>
 
         <div class="menu-section">
-            <div class="menu-title">FINANCIAL</div>
-            <a class="nav-item" onclick="switchTab('payments', this)">
+            <div class="menu-title">FINANCIAL <i class="fa-solid fa-chevron-down"></i></div>
+            <a class="nav-item">
                 <i class="fa-regular fa-credit-card"></i>
                 <span>Payments</span>
             </a>
         </div>
 
         <div class="menu-section">
-            <div class="menu-title">ACCOUNT</div>
-            <a class="nav-item" onclick="switchTab('student-info', this)">
+            <div class="menu-title">ACCOUNT <i class="fa-solid fa-chevron-down"></i></div>
+            <a class="nav-item">
                 <i class="fa-regular fa-user"></i>
-                <span>Student Info</span>
+                <span>Student info</span>
             </a>
         </div>
 
         <div class="sidebar-footer">
-            <a class="nav-item" style="padding:0; color:#64748b;">
+            <a class="nav-item" style="padding:0; color:#63738a;">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
         </div>
-    </aside>
+    </div>
 
     <!-- Main Section -->
-    <div class="main-container">
-        <header class="top-header">
-            <div class="page-title">
-                <i class="fa-solid fa-bars" style="color: #64748b; cursor: pointer;"></i>
-                <span id="headerTitle">Transcript</span>
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="top-left">
+                <i class="fa-solid fa-bars" style="color:#6b7280; cursor:pointer;"></i>
+                <span>Transcript</span>
             </div>
-            <div class="user-profile">
-                <i class="fa-regular fa-bell" style="color: #ca8a04;"></i>
-                <div class="user-badge">032245152</div>
-                <div class="user-avatar">م</div>
-                <span>محمد رضا سيد الحلواني</span>
+            <div class="top-right">
+                <i class="fa-regular fa-bell" style="color:#d97706;"></i>
+                <span class="user-chip">032245152</span>
+                <div class="avatar">م</div>
+                <span>محمد رب سيد الكيلاني</span>
             </div>
-        </header>
+        </div>
 
-        <main class="content-area">
-            <!-- Transcript Page -->
-            <div id="transcript" class="page-view active">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <span>CUMULATIVE GPA</span>
-                            <h3>1.99 <small style="font-size:9px; color:#94a3b8;">/ 1.99</small></h3>
-                        </div>
-                        <div class="stat-icon icon-blue"><i class="fa-regular fa-circle-check"></i></div>
+        <div class="content-container">
+            <!-- Stat Cards -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div>
+                        <span>CUMULATIVE GPA</span>
+                        <h4>1.99 <small style="font-size:8px; color:#9ca3af;">/ 4.00</small></h4>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <span>GRADE</span>
-                            <h3>F</h3>
-                        </div>
-                        <div class="stat-icon icon-yellow"><i class="fa-regular fa-shield"></i></div>
+                    <div class="stat-card-icon" style="background:#eff6ff; color:#2563eb;"><i class="fa-regular fa-circle-check"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div>
+                        <span>GRADE</span>
+                        <h4>F</h4>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <span>BARRER Maxers</span>
-                            <h3>70 <small style="font-size:9px; color:#94a3b8;">hrs</small></h3>
-                        </div>
-                        <div class="stat-icon icon-cyan"><i class="fa-regular fa-clock"></i></div>
+                    <div class="stat-card-icon" style="background:#fefce8; color:#ca8a04;"><i class="fa-regular fa-shield"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div>
+                        <span>BARRER Maxers</span>
+                        <h4>70 <small style="font-size:8px; color:#9ca3af;">hrs</small></h4>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-info">
-                            <span>LEVEL</span>
-                            <h3>3</h3>
-                        </div>
-                        <div class="stat-icon icon-green"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="stat-card-icon" style="background:#ecfeff; color:#0891b2;"><i class="fa-regular fa-clock"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div>
+                        <span>LEVEL</span>
+                        <h4>3</h4>
+                    </div>
+                    <div class="stat-card-icon" style="background:#f0fdf4; color:#16a34a;"><i class="fa-solid fa-chart-line"></i></div>
+                </div>
+            </div>
+
+            <div class="toggle-btn">
+                <span><i class="fa-regular fa-compass"></i> GPA SCALE</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <div class="toggle-btn">
+                <span><i class="fa-solid fa-chart-line"></i> ACADEMIC LEVELS</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <!-- Term: Fall -->
+            <div class="term-card">
+                <div class="term-header">
+                    <div class="term-title-group">
+                        <h3>FALL</h3>
+                        <span class="badge badge-year">2025 / 2026</span>
+                        <span class="badge badge-warning">Grades Not Posted</span>
                     </div>
                 </div>
+                <p style="text-align:center; color:#9ca3af; padding: 8px 0;">No grades available for this term.</p>
+            </div>
 
-                <!-- Fall Term -->
-                <div class="term-block">
-                    <div class="term-header">
-                        <div class="term-title">
-                            <h3>FALL</h3>
-                            <span class="badge-year">2025 / 2026</span>
-                            <span class="badge-status" style="background:#fef3c7; color:#92400e;">Grades Not Printed</span>
-                        </div>
+            <!-- Term: Summer -->
+            <div class="term-card">
+                <div class="term-header">
+                    <div class="term-title-group">
+                        <h3>SUMMER</h3>
+                        <span class="badge badge-year">2025 / 2026</span>
+                        <span class="badge badge-success">Posted</span>
                     </div>
-                    <p style="text-align:center; color:#94a3b8; padding: 12px 0;">No grades available for this term.</p>
+                    <span style="font-size:9.5px; font-weight:600;">CPA 1.50</span>
                 </div>
 
-                <!-- Summer Term -->
-                <div class="term-block">
-                    <div class="term-header">
-                        <div class="term-title">
-                            <h3>SUMMER</h3>
-                            <span class="badge-year">2025 / 2026</span>
-                            <span class="badge-status">Posted</span>
-                        </div>
-                        <span style="font-weight:600; color:#475569;">CPA 1.50</span>
-                    </div>
-
-                    <table class="data-table">
+                <div class="table-responsive">
+                    <table>
                         <thead>
                             <tr>
                                 <th>COURSE</th>
@@ -464,78 +468,107 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>COM 205-Operating Systems</strong><br><small style="color:#94a3b8;">COM 205</small></td>
+                                <td><strong>COM 205-Operating Systems</strong><br><small style="color:#9ca3af;">COM 205</small></td>
                                 <td>3</td>
                                 <td>59.0</td>
-                                <td><span class="grade-badge grade-d">D</span></td>
+                                <td><span class="grade-tag grade-d">D</span></td>
                                 <td>1.50</td>
-                                <td><span class="pass-tag">Pass</span></td>
+                                <td><span class="pass-badge">Pass</span></td>
                             </tr>
                             <tr>
-                                <td><strong>COM 207-Data Structures</strong><br><small style="color:#94a3b8;">COM 207</small></td>
+                                <td><strong>COM 207-Data Structures</strong><br><small style="color:#9ca3af;">COM 207</small></td>
                                 <td>3</td>
                                 <td>59.0</td>
-                                <td><span class="grade-badge grade-d">D</span></td>
+                                <td><span class="grade-tag grade-d">D</span></td>
                                 <td>1.50</td>
-                                <td><span class="pass-tag">Pass</span></td>
+                                <td><span class="pass-badge">Pass</span></td>
                             </tr>
                             <tr>
-                                <td><strong>GEN 317 Problem Solving & Decomsinsning Skills</strong><br><small style="color:#94a3b8;">COM 317</small></td>
+                                <td><strong>GEN 317-Problem Solving & Decisionmaking Skills</strong><br><small style="color:#9ca3af;">COM 317</small></td>
                                 <td>2</td>
                                 <td>82.0</td>
-                                <td><span class="grade-badge grade-b">B</span></td>
+                                <td><span class="grade-tag grade-b">B</span></td>
                                 <td>2.00</td>
-                                <td><span class="pass-tag">Pass</span></td>
+                                <td><span class="pass-badge">Pass</span></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
 
-                    <div class="term-summary">
-                        <div>TERM GPA: <strong>1.31</strong></div>
-                        <div>Hrs: <strong>6/8</strong></div>
-                        <div>Points: <strong>12.00</strong></div>
-                        <div>CUMULATIVE GGPA: <strong>1.59</strong></div>
-                        <div>Hrs: <strong>70</strong></div>
-                        <div>Level: <strong>3</strong></div>
+                <div class="term-footer">
+                    <div>TERM CPA: <strong>1.91</strong></div>
+                    <div>Hrs: <strong>6/8</strong></div>
+                    <div>Points: <strong>12.00</strong></div>
+                    <div>CUMULATIVE CGPA: <strong>1.59</strong></div>
+                    <div>Hrs: <strong>70</strong></div>
+                    <div>Level: <strong>3</strong></div>
+                </div>
+            </div>
+
+            <!-- Term: Spring -->
+            <div class="term-card">
+                <div class="term-header">
+                    <div class="term-title-group">
+                        <h3>SPRING</h3>
+                        <span class="badge badge-year">2025 / 2026</span>
+                        <span class="badge badge-success">Posted</span>
                     </div>
+                    <span style="font-size:9.5px; font-weight:600;">CPA 1.60</span>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>COURSE</th>
+                                <th>CREDIT HOURS</th>
+                                <th>MARKS</th>
+                                <th>GRADE</th>
+                                <th>POINTS</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>BAS 204-Linear Algebra</strong><br><small style="color:#9ca3af;">EAL1204</small></td>
+                                <td>3</td>
+                                <td>62.0</td>
+                                <td><span class="grade-tag grade-d">D+</span></td>
+                                <td>1.00</td>
+                                <td><span class="pass-badge">Pass</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>COM 206-System Analysis and Design</strong><br><small style="color:#9ca3af;">COM 206</small></td>
+                                <td>3</td>
+                                <td>72.0</td>
+                                <td><span class="grade-tag grade-c">C+</span></td>
+                                <td>2.50</td>
+                                <td><span class="pass-badge">Pass</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>COM 207-Data Structures</strong><br><small style="color:#9ca3af;">COM 207</small></td>
+                                <td>3</td>
+                                <td>43.0</td>
+                                <td><span class="grade-tag grade-f">F</span></td>
+                                <td>-</td>
+                                <td><span class="pass-badge">Pass</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="term-footer">
+                    <div>TERM CPA: <strong>1.60</strong></div>
+                    <div>Hrs: <strong>15/18</strong></div>
+                    <div>Points: <strong>28.80</strong></div>
+                    <div>CUMULATIVE CGPA: <strong>1.90</strong></div>
+                    <div>Hrs: <strong>65</strong></div>
+                    <div>Level: <strong>3</strong></div>
                 </div>
             </div>
 
-            <!-- Payments Page -->
-            <div id="payments" class="page-view">
-                <div class="stats-grid">
-                    <div class="stat-card"><div class="stat-info"><span>Total Fees</span><h3>107,000.00 EGP</h3></div></div>
-                    <div class="stat-card"><div class="stat-info"><span>Discount</span><h3>0.00 EGP</h3></div></div>
-                    <div class="stat-card"><div class="stat-info"><span>Total Paid</span><h3>107,000.00 EGP</h3></div></div>
-                    <div class="stat-card"><div class="stat-info"><span>Balance Due</span><h3>0.00 EGP</h3></div></div>
-                </div>
-            </div>
-
-            <!-- Student Info Page -->
-            <div id="student-info" class="page-view">
-                <div class="term-block">
-                    <h3>محمد رضا سيد الحلواني</h3>
-                    <p style="color:#64748b; margin-top:4px;">ID: 932240152</p>
-                </div>
-            </div>
-        </main>
+        </div>
     </div>
 
-    <script>
-        function switchTab(tabId, element) {
-            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-
-            document.getElementById(tabId).classList.add('active');
-            if (element) element.classList.add('active');
-
-            const titleMap = {
-                'transcript': 'Transcript',
-                'payments': 'Payments',
-                'student-info': 'Student Info'
-            };
-            document.getElementById('headerTitle').innerText = titleMap[tabId];
-        }
-    </script>
 </body>
 </html>
