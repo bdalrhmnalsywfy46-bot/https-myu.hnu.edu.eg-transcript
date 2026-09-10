@@ -1,213 +1,141 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بوابة الطالب الإلكترونية - جامعة الأزهر</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Tajawal', sans-serif;
-    background: #eef1f5;
-    color: #22262b;
-    padding: 0 0 40px 0;
-  }
-  .topbar {
-    background: #0d3b78;
-    color: #fff;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .topbar .welcome {
-    font-size: 15px;
-    font-weight: 500;
-  }
-  .logout-btn {
-    background: #1976d2;
-    color: #fff;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .container {
-    max-width: 760px;
-    margin: 24px auto;
-    padding: 0 16px;
-  }
-  .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    margin-bottom: 22px;
-    overflow: hidden;
-  }
-  .card-header {
-    background: #1976d2;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 800;
-    padding: 16px 20px;
-  }
-  .field-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    border-bottom: 1px solid #eef1f5;
-    gap: 12px;
-  }
-  .field-row:last-child { border-bottom: none; }
-  .field-label {
-    font-weight: 700;
-    color: #495057;
-    white-space: nowrap;
-    font-size: 15px;
-  }
-  .field-value {
-    flex: 1;
-    background: #f7f9fb;
-    border: 1px solid #dfe4ea;
-    border-radius: 6px;
-    padding: 10px 14px;
-    font-size: 15px;
-    text-align: center;
-    color: #212529;
-  }
-  .status-badge {
-    background: #fff7e6;
-    border: 1px solid #ffd591;
-    color: #ad6800;
-    border-radius: 6px;
-    padding: 10px 14px;
-    font-size: 15px;
-    text-align: center;
-    flex: 1;
-    font-weight: 700;
-  }
-  table.results {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
-  }
-  table.results th {
-    background: #1976d2;
-    color: #fff;
-    padding: 12px 10px;
-    font-weight: 700;
-    font-size: 15px;
-  }
-  table.results td {
-    padding: 12px 10px;
-    text-align: center;
-    border-bottom: 1px solid #eef1f5;
-  }
-  table.results tr:nth-child(even) td { background: #f7f9fb; }
-  .pass { color: #1e7e34; font-weight: 700; }
-  .fail { color: #c62828; font-weight: 700; }
-  .summary-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 16px 20px;
-    align-items: center;
-    border-top: 2px solid #eef1f5;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .summary-label { font-weight: 800; font-size: 16px; }
-  .summary-value {
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-weight: 800;
-    font-size: 16px;
-  }
-  .summary-value.fail-final { background: #fdecea; color: #c62828; border: 1px solid #f5b7b1; }
-  .footer-note {
-    text-align: center;
-    color: #8a94a3;
-    font-size: 13px;
-    margin-top: 10px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - Portal Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            color: #fff;
+        }
+
+        .login-card h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+
+        .login-card p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            direction: ltr;
+            text-align: center;
+        }
+
+        .input-group input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #0284c7;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #0369a1;
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 13px;
+            margin-top: 15px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="welcome">مرحبا بك، عبد الرحمن مصطفى محمود حنفى السيوفى</div>
-    <button class="logout-btn">تسجيل خروج ⇦</button>
-  </div>
+    <div class="login-card">
+        <h2>تسجيل الدخول</h2>
+        <p>أدخل الرقم التعريفي للوصول للمنظومة</p>
 
-  <div class="container">
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="studentId">الرقم التعريفي (Student ID):</label>
+                <input type="text" id="studentId" placeholder="أدخل الرقم التعريفي" required autocomplete="off">
+            </div>
 
-    <!-- بيانات الطالب -->
-    <div class="card">
-      <div class="card-header">بيانات الطالب</div>
-      <div class="field-row"><div class="field-value">عبد الرحمن مصطفى محمود حنفى السيوفى</div><div class="field-label">اسم الطالب :</div></div>
-      <div class="field-row"><div class="field-value">كلية شريعة وقانون</div><div class="field-label">الكلية :</div></div>
-      <div class="field-row"><div class="field-value">الشريعه الاسلامية</div><div class="field-label">القسم :</div></div>
-      <div class="field-row"><div class="field-value">30606030103351</div><div class="field-label">الرقم القومي :</div></div>
-      <div class="field-row"><div class="field-value">120251081154</div><div class="field-label">الكود :</div></div>
-      <div class="field-row"><div class="field-value">الفرقة الأولى</div><div class="field-label">الفرقة :</div></div>
-      <div class="field-row"><div class="field-value">الفصل الدراسى الثانى</div><div class="field-label">الفصل الدراسي :</div></div>
-      <div class="field-row"><div class="field-value">2025-2026</div><div class="field-label">العام الأكاديمي :</div></div>
-      <div class="field-row"><div class="field-value">52157</div><div class="field-label">رقم الجلوس :</div></div>
-      <div class="field-row"><div class="field-value">لجنة 153</div><div class="field-label">رقم اللجنة :</div></div>
-      <div class="field-row"><div class="field-value">مبنى كلية أصول الدين</div><div class="field-label">مكان اللجنة :</div></div>
+            <button type="submit" class="btn-submit">دخول</button>
+            <div id="errorMsg" class="error-message">الرقم التعريفي غير صحيح! حاول مرة أخرى.</div>
+        </form>
     </div>
 
-    <!-- نتيجة الفصل الدراسي -->
-    <div class="card">
-      <div class="card-header">نتيجة الفصل الدراسي</div>
-      <div class="field-row">
-        <div class="status-badge">مستجد</div>
-        <div class="field-label">حالة الطالب فى الفرقة :</div>
-      </div>
+    <script>
+        const validId = "932240152"; // ID المطلوب
 
-      <table class="results">
-        <thead>
-          <tr>
-            <th>المقرر باللغة العربية</th>
-            <th>التقدير</th>
-            <th>الحالة</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>تفسير آيات الاحكام</td><td>ض</td><td class="fail">راسب</td></tr>
-          <tr><td>تاريخ التشريع الاسلامي</td><td>ض</td><td class="fail">راسب</td></tr>
-          <tr><td>علوم الحديث</td><td>ج</td><td class="pass">ناجح</td></tr>
-          <tr><td>اللغة العربية(نحو وصرف)</td><td>ل</td><td class="pass">ناجح</td></tr>
-          <tr><td>اللغة الاجنبية</td><td>م</td><td class="pass">ناجح</td></tr>
-          <tr><td>القرآن الكريم</td><td>ج ج</td><td class="pass">ناجح</td></tr>
-          <tr><td>الفقه(المذهبي)</td><td>ض</td><td class="fail">راسب</td></tr>
-          <tr><td>اصول الفقه(حنفي وغيرحنفي)</td><td>ض</td><td class="fail">راسب</td></tr>
-          <tr><td>الفقه المقارن</td><td>ل</td><td class="pass">ناجح</td></tr>
-          <tr><td>قاعة البحث في اصول الفقه</td><td>ج</td><td class="pass">ناجح</td></tr>
-          <tr><td>قاعة البحث في الفقه</td><td>ض ج</td><td class="fail">راسب</td></tr>
-          <tr><td>قضايا فقهية معاصرة</td><td>ل</td><td class="pass">ناجح</td></tr>
-          <tr><td>توحيد (الالهيات)</td><td>ض ج</td><td class="fail">راسب</td></tr>
-        </tbody>
-      </table>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputVal = document.getElementById('studentId').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
 
-      <div class="summary-row">
-        <div class="summary-label">التقدير:</div>
-        <div class="summary-value">ض ج</div>
-      </div>
-      <div class="summary-row">
-        <div class="summary-label">حالة النجاح:</div>
-        <div class="summary-value fail-final">راسب</div>
-      </div>
-    </div>
-
-    <div class="footer-note">حقوق النشر © 2023-2024 انفورماتيك لبرمجيات التعليم / جميع الحقوق محفوظة</div>
-  </div>
-
+            if (inputVal === validId) {
+                // عند نجاح الدخول يمكنك توجيهه لصفحة النتائج أو البورتال
+                alert("تم تسجيل الدخول بنجاح!");
+                // window.location.href = "dashboard.html"; 
+            } else {
+                errorMsg.style.display = "block";
+            }
+        });
+    </script>
 </body>
 </html>
