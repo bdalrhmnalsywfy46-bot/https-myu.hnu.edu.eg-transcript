@@ -1,139 +1,260 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - Portal Login</title>
+    <title>HNU Portal - Sign In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(180deg, #0f1d2e 0%, #172a3f 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 40px 30px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 36px 28px 28px 28px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            max-width: 380px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
             text-align: center;
-            color: #fff;
         }
 
-        .login-card h2 {
+        .logo-box {
+            width: 68px;
+            height: 68px;
+            background-color: #1e3a62;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(30, 58, 98, 0.2);
+        }
+
+        h2 {
             font-size: 24px;
-            margin-bottom: 8px;
-            color: #f8fafc;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
         }
 
-        .login-card p {
+        .subtitle {
+            font-size: 13.5px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .error-box {
+            background-color: #fef2f2;
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            color: #dc2626;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .error-box i {
             font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 25px;
         }
 
         .input-group {
-            margin-bottom: 20px;
-            text-align: right;
+            text-align: left;
+            margin-bottom: 16px;
         }
 
         .input-group label {
             display: block;
             font-size: 13px;
-            color: #cbd5e1;
-            margin-bottom: 8px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 6px;
         }
 
-        .input-group input {
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.field-icon {
+            position: absolute;
+            left: 14px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .input-wrapper i.toggle-pwd {
+            position: absolute;
+            right: 14px;
+            color: #94a3b8;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .input-wrapper input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 38px 10px 38px;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            color: #fff;
-            font-size: 15px;
+            font-size: 13.5px;
+            color: #1e293b;
             outline: none;
-            transition: all 0.3s ease;
-            direction: ltr;
-            text-align: center;
+            transition: border-color 0.2s;
         }
 
-        .input-group input:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        .input-wrapper input:focus {
+            border-color: #3b82f6;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #94a3b8;
+        }
+
+        .remember-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .remember-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1e3a62;
+            cursor: pointer;
+        }
+
+        .remember-group label {
+            font-size: 13px;
+            color: #475569;
+            cursor: pointer;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 12px;
+            padding: 11px;
             border: none;
             border-radius: 8px;
-            background: #0284c7;
-            color: #fff;
-            font-size: 16px;
+            background-color: #8da2bd;
+            color: #ffffff;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
-            margin-top: 10px;
+            transition: background-color 0.2s;
         }
 
         .btn-submit:hover {
-            background: #0369a1;
+            background-color: #1e3a62;
         }
 
-        .error-message {
-            color: #f87171;
-            font-size: 13px;
-            margin-top: 15px;
-            display: none;
+        .footer-text {
+            margin-top: 36px;
+            font-size: 11.5px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .footer-text strong {
+            display: block;
+            color: #475569;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
     <div class="login-card">
-        <h2>تسجيل الدخول</h2>
-        <p>أدخل الرقم التعريفي للوصول للمنظومة</p>
+        <div class="logo-box">HNU</div>
+
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to your student portal</p>
+
+        <div id="errorAlert" class="error-box">
+            <i class="fa-regular fa-circle-xmark"></i>
+            <span>Invalid username or password</span>
+        </div>
 
         <form id="loginForm">
             <div class="input-group">
-                <label for="studentId">الرقم التعريفي (Student ID):</label>
-                <input type="text" id="studentId" placeholder="أدخل الرقم التعريفي" required autocomplete="off">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-user field-icon"></i>
+                    <input type="text" id="username" placeholder="Enter your username" required autocomplete="off">
+                </div>
             </div>
 
-            <button type="submit" class="btn-submit">دخول</button>
-            <div id="errorMsg" class="error-message">الرقم التعريفي غير صحيح! حاول مرة أخرى.</div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock field-icon"></i>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <i class="fa-regular fa-eye-slash toggle-pwd" id="togglePassword"></i>
+                </div>
+            </div>
+
+            <div class="remember-group">
+                <input type="checkbox" id="rememberMe" checked>
+                <label for="rememberMe">Remember me for 30 days</label>
+            </div>
+
+            <button type="submit" class="btn-submit">Sign In</button>
         </form>
+
+        <div class="footer-text">
+            <strong>Helwan National University</strong>
+            Student Information System
+        </div>
     </div>
 
     <script>
-        const validId = "932240152"; // ID المطلوب
+        const validId = "932240152";
 
+        // إظهار/إخفاء كلمة المرور
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // التحقق من تسجيل الدخول
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const inputVal = document.getElementById('studentId').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
+            const userInput = document.getElementById('username').value.trim();
+            const errorAlert = document.getElementById('errorAlert');
 
-            if (inputVal === validId) {
-                // عند نجاح الدخول يمكنك توجيهه لصفحة النتائج أو البورتال
-                alert("تم تسجيل الدخول بنجاح!");
-                // window.location.href = "dashboard.html"; 
+            if (userInput === validId) {
+                errorAlert.style.display = "none";
+                alert("Sign in successful!");
+                // window.location.href = "transcript.html";
             } else {
-                errorMsg.style.display = "block";
+                errorAlert.style.display = "flex";
             }
         });
     </script>
