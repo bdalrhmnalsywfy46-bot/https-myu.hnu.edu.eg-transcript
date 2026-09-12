@@ -1,606 +1,113 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HNU Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            background-color: #f4f6f9;
-            direction: ltr; /* Keeping portal layout orientation */
-            font-size: 11px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        /* ---------------- LOGIN PAGE ---------------- */
-        #login-page {
-            background: linear-gradient(180deg, #162a36 0%, #0d1a24 100%);
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: fixed;
-            top: 0; left: 0; z-index: 9999;
-        }
+    body {
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-        .login-card {
-            background: #fff;
-            width: 100%;
-            max-width: 350px;
-            border-radius: 16px;
-            padding: 24px 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            text-align: center;
-        }
+    .login-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
 
-        .login-logo {
-            width: 60px; height: 60px; background: #1b355a; border-radius: 14px;
-            color: #fff; font-weight: 800; font-size: 18px; display: flex;
-            align-items: center; justify-content: center; margin: 0 auto 14px;
-        }
+    .login-header h2 {
+      margin-bottom: 8px;
+      color: #333;
+    }
 
-        .error-alert {
-            background: #fde8e8; border-radius: 8px; padding: 8px 12px;
-            display: flex; align-items: center; gap: 8px; color: #9b1c1c;
-            font-size: 11px; margin-bottom: 12px; text-align: left;
-        }
+    .login-header p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
 
-        .form-group { text-align: left; margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 10px; font-weight: 600; color: #4b5563; margin-bottom: 4px; }
-        .input-wrap { position: relative; }
-        .input-wrap i { position: absolute; left: 12px; top: 11px; color: #9ca3af; font-size: 12px; }
-        .form-input { width: 100%; height: 36px; padding: 0 35px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 11px; }
+    .form-group {
+      margin-bottom: 18px;
+      text-align: right;
+    }
 
-        .btn-submit {
-            width: 100%; height: 36px; background: linear-gradient(180deg, #2b4c7e 0%, #1b355a 100%);
-            color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px;
-        }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #444;
+    }
 
-        /* ---------------- DASHBOARD LAYOUT ---------------- */
-        #dashboard-page {
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-        /* SIDEBAR OVERLAY */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 99;
-        }
-        .sidebar-overlay.active { display: block; }
+    .form-group input:focus {
+      border-color: #004085;
+    }
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 220px;
-            background-color: #172a45;
-            color: #8a99ad;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            position: absolute;
-            top: 0; left: 0;
-            z-index: 100;
-            transition: transform 0.25s ease-in-out;
-            transform: translateX(-100%); /* Closed by default */
-            box-shadow: 4px 0 15px rgba(0,0,0,0.15);
-            overflow-y: auto;
-        }
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #004085;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
 
-        .sidebar.active {
-            transform: translateX(0); /* Opened on toggle */
-        }
-
-        .sidebar-header { padding: 14px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .logo-sm { width: 28px; height: 28px; background: #273e68; border-radius: 6px; color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-        .logo-txt h3 { color: #fff; font-size: 11px; font-weight: 700; }
-        .logo-txt p { font-size: 8px; color: #63738a; }
-
-        /* CATEGORY HEADERS (CLICKABLE TOGGLES) */
-        .menu-cat {
-            font-size: 8px;
-            color: #63738a;
-            padding: 12px 14px 6px;
-            font-weight: 700;
-            text-transform: uppercase;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            transition: color 0.2s;
-        }
-        .menu-cat:hover { color: #fff; }
-        .menu-cat .cat-icon {
-            font-size: 8px;
-            transition: transform 0.2s ease;
-        }
-        .menu-cat.open .cat-icon {
-            transform: rotate(180deg);
-        }
-
-        /* SUBMENUS */
-        .submenu {
-            display: none;
-        }
-        .submenu.open {
-            display: block;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 14px 8px 22px;
-            color: #9ab0ce;
-            text-decoration: none;
-            font-size: 10.5px;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-        .nav-link:hover { background: rgba(255,255,255,0.04); color: #fff; }
-        .nav-link.active {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-            border-left: 3px solid #3b82f6;
-            font-weight: 600;
-        }
-        .nav-link i { font-size: 11px; width: 14px; text-align: center; }
-
-        /* MAIN CONTENT AREA */
-        .main-wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* TOP NAVIGATION BAR */
-        .top-nav {
-            background: #fff;
-            height: 44px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-            flex-shrink: 0;
-        }
-
-        .menu-toggle-btn {
-            font-size: 16px;
-            color: #4b5563;
-            cursor: pointer;
-            padding: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .user-info { display: flex; align-items: center; gap: 6px; font-size: 9.5px; direction: rtl; }
-        .avatar { width: 22px; height: 22px; background: #314d79; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; }
-
-        .content-area {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 8px;
-        }
-
-        .tab-content { display: none; width: 100%; }
-        .tab-content.active { display: block; }
-
-        /* STATS GRID */
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 8px; }
-        .stat-card { background: #fff; padding: 8px; border-radius: 6px; border: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
-        .stat-card span { font-size: 7.5px; color: #6b7280; font-weight: 700; display: block; }
-        .stat-card h4 { font-size: 11px; color: #111827; margin-top: 2px; }
-
-        .toggle-bar { background: #fff; border: 1px solid #e5e7eb; padding: 6px 8px; border-radius: 4px; font-size: 8.5px; color: #4b5563; display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 600; }
-
-        .card-box { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px; margin-bottom: 8px; width: 100%; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-
-        .badge { padding: 1px 4px; border-radius: 3px; font-size: 7.5px; }
-        .badge-year { background: #f3f4f6; color: #374151; }
-        .badge-ok { background: #dcfce7; color: #166534; }
-
-        /* TABLE RESPONSIVENESS */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        table { width: 100%; border-collapse: collapse; font-size: 8.5px; min-width: 320px; }
-        th { text-align: left; padding: 4px 2px; color: #6b7280; font-size: 7.5px; border-bottom: 1px solid #e5e7eb; white-space: nowrap; }
-        td { padding: 4px 2px; border-bottom: 1px solid #f3f4f6; color: #1f2937; }
-
-        .tag-grade { display: inline-block; padding: 1px 4px; border-radius: 6px; font-size: 7.5px; font-weight: 600; }
-        .g-d { background: #ffedd5; color: #c2410c; }
-        .g-b { background: #dbeafe; color: #1e40af; }
-        .g-c { background: #fef9c3; color: #854d0e; }
-        .g-f { background: #fee2e2; color: #991b1b; }
-
-        .pass-btn { background: #dcfce7; color: #15803d; padding: 1px 3px; border-radius: 2px; font-size: 7.5px; }
-
-        .summary-row { margin-top: 6px; padding-top: 4px; border-top: 1px dashed #e5e7eb; display: flex; flex-wrap: wrap; gap: 6px; font-size: 8px; color: #6b7280; }
-
-        /* PAYMENTS TAB SUB-NAV */
-        .sub-nav { display: flex; gap: 8px; border-bottom: 1px solid #e5e7eb; margin-bottom: 8px; font-size: 8.5px; overflow-x: auto; }
-        .sub-nav span { padding: 4px 6px; cursor: pointer; color: #6b7280; white-space: nowrap; }
-        .sub-nav span.active { color: #1f2937; font-weight: 600; border-bottom: 2px solid #1f2937; }
-
-        /* PROFILE BANNER */
-        .profile-banner { background: linear-gradient(135deg, #1b355a 0%, #2a4b7c 100%); color: #fff; padding: 10px; border-radius: 6px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .profile-avatar { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; }
-
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .info-item { font-size: 8.5px; margin-bottom: 4px; word-break: break-all; }
-        .info-item label { color: #9ca3af; font-size: 7.5px; display: block; text-transform: uppercase; }
-    </style>
+    .btn-submit:hover {
+      background-color: #002752;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN PAGE -->
-    <div id="login-page">
-        <div class="login-card">
-            <div class="login-logo">HNU</div>
-            <h2 style="font-size:16px; color:#111827; margin-bottom:4px;">Welcome Back</h2>
-            <p style="font-size:10px; color:#9ca3af; margin-bottom:12px;">Sign in to your student portal</p>
-
-            <div class="error-alert">
-                <i class="fa-regular fa-circle-xmark"></i>
-                <span>Invalid username or password</span>
-            </div>
-
-            <div class="form-group">
-                <label>Username</label>
-                <div class="input-wrap">
-                    <i class="fa-regular fa-user"></i>
-                    <input type="text" class="form-input" value="932240152">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-wrap">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" class="form-input" value="••••••••">
-                </div>
-            </div>
-
-            <button class="btn-submit" onclick="showDashboard()">Sign In</button>
-
-            <div style="border-top: 1px solid #f3f4f6; padding-top: 10px; margin-top: 14px;">
-                <p style="font-weight:700; color:#6b7280; font-size:9px;">Helwan National University</p>
-                <p style="color:#9ca3af; font-size:8px;">Student Information System</p>
-            </div>
-        </div>
+  <div class="login-container">
+    <div class="login-header">
+      <h2>بوابة الطلاب</h2>
+      <p>يرجى إدخال بيانات الحساب لمتابعة الدخول</p>
     </div>
 
-    <!-- 2. DASHBOARD PAGE -->
-    <div id="dashboard-page">
-        
-        <!-- Sidebar Backdrop Overlay -->
-        <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <!-- يتم إرسال البيانات بشكل آمن إلى الخادم عبر طريقة POST -->
+    <form action="/login-endpoint" method="POST">
+      <div class="form-group">
+        <label for="studentId">كود الطالب</label>
+        <input type="text" id="studentId" name="studentId" placeholder="أدخل كود الطالب" required autocomplete="username">
+      </div>
 
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="logo-sm">HNU</div>
-                <div class="logo-txt">
-                    <h3>HNU Portal</h3>
-                    <p>Student Portal</p>
-                </div>
-            </div>
+      <div class="form-group">
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required autocomplete="current-password">
+      </div>
 
-            <!-- ACADEMIC CATEGORY -->
-            <div class="menu-cat open" onclick="toggleSubmenu('academic-submenu', this)">
-                <span>ACADEMIC</span>
-                <i class="fa-solid fa-chevron-down cat-icon"></i>
-            </div>
-            <div id="academic-submenu" class="submenu open">
-                <a class="nav-link" onclick="switchTab('transcript-tab', this)">
-                    <i class="fa-regular fa-file-lines"></i> <span>Transcript</span>
-                </a>
-                <a class="nav-link" onclick="switchTab('registration-tab', this)">
-                    <i class="fa-regular fa-bookmark"></i> <span>Registration</span>
-                </a>
-            </div>
+      <button type="submit" class="btn-submit">تسجيل الدخول</button>
+    </form>
+  </div>
 
-            <!-- FINANCIAL CATEGORY -->
-            <div class="menu-cat open" onclick="toggleSubmenu('financial-submenu', this)">
-                <span>FINANCIAL</span>
-                <i class="fa-solid fa-chevron-down cat-icon"></i>
-            </div>
-            <div id="financial-submenu" class="submenu open">
-                <a class="nav-link" onclick="switchTab('payments-tab', this)">
-                    <i class="fa-regular fa-credit-card"></i> <span>Payments</span>
-                </a>
-            </div>
-
-            <!-- ACCOUNT CATEGORY -->
-            <div class="menu-cat open" onclick="toggleSubmenu('account-submenu', this)">
-                <span>ACCOUNT</span>
-                <i class="fa-solid fa-chevron-down cat-icon"></i>
-            </div>
-            <div id="account-submenu" class="submenu open">
-                <a class="nav-link active" onclick="switchTab('info-tab', this)">
-                    <i class="fa-regular fa-user"></i> <span>Student Info</span>
-                </a>
-            </div>
-
-            <!-- LOGOUT AT BOTTOM -->
-            <div style="margin-top:auto; padding:12px; border-top: 1px solid rgba(255,255,255,0.05);">
-                <a class="nav-link" style="padding:0; color:#63738a;" onclick="showLogin()">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Logout</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Main Content Wrapper -->
-        <div class="main-wrapper">
-            <!-- Top Navbar Bar -->
-            <div class="top-nav">
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <div class="menu-toggle-btn" onclick="toggleSidebar()">
-                        <i class="fa-solid fa-bars"></i>
-                    </div>
-                    <span id="page-heading" style="font-weight:600; color:#1f2937; font-size:11px;">Student Info</span>
-                </div>
-                <div class="user-info">
-                    <div class="avatar">ما</div>
-                    <span style="font-weight:600;">محمد رضا سيد الحلواني</span>
-                    <span style="background:#f3f4f6; padding:1px 4px; border-radius:3px; font-size:8px; color:#374151;">932240152</span>
-                    <i class="fa-regular fa-bell" style="color:#d97706; margin-left:2px;"></i>
-                </div>
-            </div>
-
-            <!-- Dynamic Tab Content Area -->
-            <div class="content-area">
-                
-                <!-- 1. TRANSCRIPT TAB -->
-                <div id="transcript-tab" class="tab-content">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div><span>CUMULATIVE GPA</span><h4>1.99 <small style="font-size:7px; color:#9ca3af;">/ 1.99</small></h4></div>
-                            <i class="fa-regular fa-circle-check" style="color:#2563eb;"></i>
-                        </div>
-                        <div class="stat-card">
-                            <div><span>GRADE</span><h4>F</h4></div>
-                            <i class="fa-regular fa-shield" style="color:#ca8a04;"></i>
-                        </div>
-                        <div class="stat-card">
-                            <div><span>BARRER Maxers</span><h4>70 <small style="font-size:7px; color:#9ca3af;">hrs</small></h4></div>
-                            <i class="fa-regular fa-clock" style="color:#0891b2;"></i>
-                        </div>
-                        <div class="stat-card">
-                            <div><span>LEVEL</span><h4>3</h4></div>
-                            <i class="fa-solid fa-chart-line" style="color:#16a34a;"></i>
-                        </div>
-                    </div>
-
-                    <div class="toggle-bar"><span>GPA SCALE</span><i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="toggle-bar"><span>ACADEMIC LEVELS</span><i class="fa-solid fa-chevron-right"></i></div>
-
-                    <!-- Summer Section -->
-                    <div class="card-box">
-                        <div class="card-header">
-                            <div>
-                                <strong>SUMMER</strong> <span class="badge badge-year">2025 / 2026</span> <span class="badge badge-ok">Posted</span>
-                            </div>
-                            <span style="font-size:8px; font-weight:600;">CPA 1.50</span>
-                        </div>
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr><th>COURSE</th><th>CREDIT</th><th>MARKS</th><th>GRADE</th><th>POINTS</th><th>STATUS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td><strong>COM 205-Operating Systems</strong><br><small style="color:#9ca3af;">COM 205</small></td><td>3</td><td>59.0</td><td><span class="tag-grade g-d">D</span></td><td>1.50</td><td><span class="pass-btn">Pass</span></td></tr>
-                                    <tr><td><strong>COM 207-Data Structures</strong><br><small style="color:#9ca3af;">COM 207</small></td><td>3</td><td>59.0</td><td><span class="tag-grade g-d">D</span></td><td>1.50</td><td><span class="pass-btn">Pass</span></td></tr>
-                                    <tr><td><strong>GEN 317 Problem Solving</strong><br><small style="color:#9ca3af;">COM 317</small></td><td>2</td><td>82.0</td><td><span class="tag-grade g-b">B</span></td><td>2.00</td><td><span class="pass-btn">Pass</span></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="summary-row">
-                            <div>TERM GPA: <strong>1.31</strong></div>
-                            <div>Hrs: <strong>6/8</strong></div>
-                            <div>Points: <strong>12.00</strong></div>
-                            <div>CGPA: <strong>1.59</strong></div>
-                        </div>
-                    </div>
-
-                    <!-- Spring Section -->
-                    <div class="card-box">
-                        <div class="card-header">
-                            <div>
-                                <strong>SPRING</strong> <span class="badge badge-year">2025 / 2026</span> <span class="badge badge-ok">Posted</span>
-                            </div>
-                            <span style="font-size:8px; font-weight:600;">CPA 1.60</span>
-                        </div>
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr><th>COURSE</th><th>CREDIT</th><th>MARKS</th><th>GRADE</th><th>POINTS</th><th>STATUS</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td><strong>BAS 204-Linear Algebra</strong><br><small style="color:#9ca3af;">EAGL204</small></td><td>3</td><td>62.0</td><td><span class="tag-grade g-d">D+</span></td><td>1.00</td><td><span class="pass-btn">Pass</span></td></tr>
-                                    <tr><td><strong>COM 206-System Analysis</strong><br><small style="color:#9ca3af;">COM 206</small></td><td>3</td><td>72.0</td><td><span class="tag-grade g-c">C+</span></td><td>2.50</td><td><span class="pass-btn">Pass</span></td></tr>
-                                    <tr><td><strong>COM 207 Data Structures</strong><br><small style="color:#9ca3af;">COM 208</small></td><td>3</td><td>43.0</td><td><span class="tag-grade g-f">F</span></td><td>-</td><td><span class="pass-btn">Pass</span></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. REGISTRATION TAB -->
-                <div id="registration-tab" class="tab-content">
-                    <div class="card-box" style="text-align:center; padding:24px 10px;">
-                        <i class="fa-regular fa-bookmark" style="font-size:24px; color:#2563eb; margin-bottom:8px;"></i>
-                        <h4 style="font-size:11px; color:#111827;">Course Registration</h4>
-                        <p style="color:#9ca3af; font-size:8.5px; margin-top:4px;">Registration period for the current semester is closed.</p>
-                    </div>
-                </div>
-
-                <!-- 3. PAYMENTS TAB -->
-                <div id="payments-tab" class="tab-content">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div><span>TOTAL FEES</span><h4>107,000.00 <small style="font-size:7px;">EGP</small></h4></div>
-                        </div>
-                        <div class="stat-card">
-                            <div><span>DISCOUNT</span><h4>0.00 <small style="font-size:7px;">EGP</small></h4></div>
-                        </div>
-                        <div class="stat-card">
-                            <div><span>TOTAL PAID</span><h4 style="color:#16a34a;">107,000.00 <small style="font-size:7px;">EGP</small></h4></div>
-                        </div>
-                        <div class="stat-card">
-                            <div><span>BALANCE DUE</span><h4>0.00 <small style="font-size:7px;">EGP</small></h4></div>
-                        </div>
-                    </div>
-
-                    <div class="sub-nav">
-                        <span class="active">Unpaid Fees</span>
-                        <span>Installments</span>
-                        <span>Payment History 1</span>
-                        <span>All Fees</span>
-                    </div>
-
-                    <div class="card-box" style="text-align:center; padding:24px 10px;">
-                        <i class="fa-regular fa-circle-check" style="font-size:22px; color:#16a34a; margin-bottom:6px;"></i>
-                        <h4 style="font-size:11px; color:#111827;">No Outstanding Fees</h4>
-                        <p style="color:#9ca3af; font-size:8.5px;">You're all clear! No unpaid fees at this time.</p>
-                    </div>
-                </div>
-
-                <!-- 4. STUDENT INFO TAB -->
-                <div id="info-tab" class="tab-content active">
-                    <div class="profile-banner">
-                        <div class="profile-avatar">ما</div>
-                        <div>
-                            <h3 style="font-size:11px; font-weight:700;">محمد رضا سيد الحلواني</h3>
-                            <p style="font-size:8px; opacity:0.8;">ID: 932240152 · 932240152</p>
-                        </div>
-                    </div>
-
-                    <div class="card-box">
-                        <div style="font-size:9px; font-weight:700; margin-bottom:8px; color:#374151;">
-                            <i class="fa-regular fa-user"></i> Personal Information
-                        </div>
-                        <div class="info-grid">
-                            <div class="info-item"><label>First Name</label>محمد</div>
-                            <div class="info-item"><label>Middle Name</label>رضا سيد</div>
-                            <div class="info-item"><label>Last Name</label>الحلواني</div>
-                            <div class="info-item"><label>National ID</label>30509180103397</div>
-                            <div class="info-item"><label>Gender</label>M</div>
-                            <div class="info-item"><label>Email</label>Mohamed.El-Helwany.2240152@CIT.hnu.edu.eg</div>
-                            <div class="info-item"><label>Phone</label>-</div>
-                        </div>
-                    </div>
-
-                    <div class="card-box">
-                        <div style="font-size:9px; font-weight:700; margin-bottom:8px; color:#374151;">
-                            <i class="fa-solid fa-graduation-cap"></i> Academic Information
-                        </div>
-                        <div class="info-grid">
-                            <div class="info-item"><label>Student ID</label>932240152</div>
-                            <div class="info-item"><label>Username</label>932240152</div>
-                            <div class="info-item"><label>School ID</label>32</div>
-                            <div class="info-item"><label>Academic Year</label>2026 / 2027</div>
-                            <div class="info-item"><label>Grade ID</label>323</div>
-                            <div class="info-item"><label>Last Login</label>10 Sept 2026, 15:54</div>
-                            <div class="info-item"><label>Last Synced</label>10 Sept 2026, 15:54</div>
-                        </div>
-                    </div>
-
-                    <div class="card-box" style="display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <div style="font-size:9px; font-weight:700; color:#374151;"><i class="fa-solid fa-lock"></i> Security</div>
-                            <p style="color:#9ca3af; font-size:7.5px; margin-top:2px;">Your password is used to sign in to the Student Portal. Changing it here will also update your SIS password.</p>
-                        </div>
-                        <span style="font-size:8.5px; color:#2563eb; font-weight:600; cursor:pointer; white-space:nowrap; margin-left:6px;">Change Password</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Toggle Sidebar Open / Close
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        // Toggle Submenu Categories (ACADEMIC, FINANCIAL, ACCOUNT)
-        function toggleSubmenu(submenuId, element) {
-            const submenu = document.getElementById(submenuId);
-            if (submenu) {
-                submenu.classList.toggle('open');
-                element.classList.toggle('open');
-            }
-        }
-
-        function showDashboard() {
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('dashboard-page').style.display = 'flex';
-        }
-
-        function showLogin() {
-            document.getElementById('dashboard-page').style.display = 'none';
-            document.getElementById('login-page').style.display = 'flex';
-            document.getElementById('sidebar').classList.remove('active');
-            document.getElementById('sidebar-overlay').classList.remove('active');
-        }
-
-        // Switch Tabs when sub-item is clicked
-        function switchTab(tabId, el) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            
-            const targetTab = document.getElementById(tabId);
-            if (targetTab) {
-                targetTab.classList.add('active');
-            }
-            
-            if (el) {
-                el.classList.add('active');
-            }
-
-            const headings = {
-                'transcript-tab': 'Transcript',
-                'registration-tab': 'Registration',
-                'payments-tab': 'Payments',
-                'info-tab': 'Student Info'
-            };
-            document.getElementById('page-heading').innerText = headings[tabId] || 'Student Portal';
-            
-            // Auto-close sidebar on item selection
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            if (sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-        }
-    </script>
 </body>
 </html>
